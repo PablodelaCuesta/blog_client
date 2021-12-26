@@ -1,119 +1,46 @@
+import axios from 'axios';
 import './Blog.css';
 
+// Components
+import Post from '../components/Post'
+import { useEffect, useState } from 'react'
+import Aside from './Aside/Aside';
+
 const Blog = () => {
+
+    const [posts, setPost] = useState({
+        count: 0,
+        msg: "",
+        posts: []
+    })
+
+
+    useEffect(() => {
+        async function retrieveData() {
+            const response = await axios.get("http://localhost:8080/api/posts?page=1")
+            setPost(response.data)
+        }
+
+        retrieveData()
+    }, [])
+
     return (
-        <div>
-
-            <div className="container px-4 py-5" id="custom-cards">
-                <h2 className="pb-2 border-bottom">Custom cards</h2>
-
-                <div className="row row-cols-1 row-cols-lg-3 align-items-stretch g-4 py-5">
-                    <div className="col">
-                        <div className="card card-cover h-100 overflow-hidden text-white bg-dark rounded-5 shadow-lg" style={{backgroundImage: `url('unsplash-photo-1.jpg')`}}>
-                            <div className="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
-                                <h2 className="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">Short title, long jacket</h2>
-                                <ul className="d-flex list-unstyled mt-auto">
-                                    <li className="me-auto">
-                                        <img src="https://github.com/twbs.png" alt="Bootstrap" width="32" height="32" className="rounded-circle border border-white" />
-                                    </li>
-                                    <li className="d-flex align-items-center me-3">
-                                        <svg className="bi me-2" width="1em" height="1em"></svg>
-                                        <small>Earth</small>
-                                    </li>
-                                    <li className="d-flex align-items-center">
-                                        <svg className="bi me-2" width="1em" height="1em"></svg>
-                                        <small>3d</small>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="col">
-                        <div className="card card-cover h-100 overflow-hidden text-white bg-dark rounded-5 shadow-lg" style={{backgroundImage: `url('unsplash-photo-2.jpg')`}}>
-                            <div className="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
-                                <h2 className="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">Much longer title that wraps to multiple lines</h2>
-                                <ul className="d-flex list-unstyled mt-auto">
-                                    <li className="me-auto">
-                                        <img src="https://github.com/twbs.png" alt="Bootstrap" width="32" height="32" className="rounded-circle border border-white"/>
-                                    </li>
-                                    <li className="d-flex align-items-center me-3">
-                                        <svg className="bi me-2" width="1em" height="1em"></svg>
-                                        <small>Pakistan</small>
-                                    </li>
-                                    <li className="d-flex align-items-center">
-                                        <svg className="bi me-2" width="1em" height="1em"></svg>
-                                        <small>4d</small>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="col">
-                        <div className="card card-cover h-100 overflow-hidden text-white bg-dark rounded-5 shadow-lg" style={{backgroundImage: `url('unsplash-photo-3.jpg')`}}>
-                            <div className="d-flex flex-column h-100 p-5 pb-3 text-shadow-1">
-                                <h2 className="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">Another longer title belongs here</h2>
-                                <ul className="d-flex list-unstyled mt-auto">
-                                    <li className="me-auto">
-                                        <img src="https://github.com/twbs.png" alt="Bootstrap" width="32" height="32" className="rounded-circle border border-white"/>
-                                    </li>
-                                    <li className="d-flex align-items-center me-3">
-                                        <svg className="bi me-2" width="1em" height="1em"></svg>
-                                        <small>California</small>
-                                    </li>
-                                    <li className="d-flex align-items-center">
-                                        <svg className="bi me-2" width="1em" height="1em"></svg>
-                                        <small>5d</small>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="col">
-                        <div className="card card-cover h-100 overflow-hidden text-white bg-dark rounded-5 shadow-lg" style={{backgroundImage: `url('unsplash-photo-3.jpg')`}}>
-                            <div className="d-flex flex-column h-100 p-5 pb-3 text-shadow-1">
-                                <h2 className="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">Another longer title belongs here</h2>
-                                <ul className="d-flex list-unstyled mt-auto">
-                                    <li className="me-auto">
-                                        <img src="https://github.com/twbs.png" alt="Bootstrap" width="32" height="32" className="rounded-circle border border-white"/>
-                                    </li>
-                                    <li className="d-flex align-items-center me-3">
-                                        <svg className="bi me-2" width="1em" height="1em"></svg>
-                                        <small>California</small>
-                                    </li>
-                                    <li className="d-flex align-items-center">
-                                        <svg className="bi me-2" width="1em" height="1em"></svg>
-                                        <small>5d</small>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="col">
-                        <div className="card card-cover h-100 overflow-hidden text-white bg-dark rounded-5 shadow-lg" style={{backgroundImage: `url('unsplash-photo-3.jpg')`}}>
-                            <div className="d-flex flex-column h-100 p-5 pb-3 text-shadow-1">
-                                <h2 className="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">Another longer title belongs here</h2>
-                                <ul className="d-flex list-unstyled mt-auto">
-                                    <li className="me-auto">
-                                        <img src="https://github.com/twbs.png" alt="Bootstrap" width="32" height="32" className="rounded-circle border border-white"/>
-                                    </li>
-                                    <li className="d-flex align-items-center me-3">
-                                        <svg className="bi me-2" width="1em" height="1em"></svg>
-                                        <small>California</small>
-                                    </li>
-                                    <li className="d-flex align-items-center">
-                                        <svg className="bi me-2" width="1em" height="1em"></svg>
-                                        <small>5d</small>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
+        <div className="row">
+            <div className="col-lg-8">
+                <div className="container px-4">
+                    <div className="row row-cols-1 row-cols-lg-3 align-items-stretch g-4 py-5">
+                        {
+                            posts.posts.length < 0 ? 'No hay posts' : posts.posts.map(post => (
+                                <Post key={post.uid} values={post} latest={true} />
+                            ))
+                        }
                     </div>
                 </div>
             </div>
+
+            <aside className="col-lg-4">
+              <Aside posts={posts}/>
+            </aside>
         </div>
     );
 };
