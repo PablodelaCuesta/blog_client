@@ -16,14 +16,18 @@ export const AuthProvider = ({ children }) => {
     const [state, dispatch] = useReducer(authReducer, initialState)
 
     const login = async (auth) => {
-
-        console.log(auth)
-        
+       
         const res = await axios.post("http://localhost:8080/api/auth/login", auth)
 
-        console.log(res.data)
-
         const {jwt, email, name } = res.data
+        const storageAuth = JSON.stringify({
+            "jwt": jwt,
+            "email": email,
+            "name": name
+        })
+
+        // Local persist
+        localStorage.setItem('auth', storageAuth)
         
         dispatch({
             type: authActions.LOGIN,
@@ -31,8 +35,23 @@ export const AuthProvider = ({ children }) => {
         })
     }
 
+    const refreshPageLogin = (auth) => {
+        dispatch({
+            type: authActions.LOGIN,
+            payload: auth
+        })
+    }
+
+    const logout = () => {
+        localStorage.removeItem('auth')
+        dispatch({
+            type: authActions.LOGOUT,
+            payload: {}
+        })
+    }
+
     return (
-        <AuthContext.Provider value={{ state, login }}>
+        <AuthContext.Provider value={{ state, login, refreshPageLogin, logout }}>
             { children }
         </AuthContext.Provider>
     )

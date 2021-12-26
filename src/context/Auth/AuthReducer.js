@@ -6,7 +6,10 @@ export const authReducer = (state, {type, payload}) => {
             return {                
                 ...payload
             }
-    
+        case authActions.LOGOUT:
+            return {
+                ...payload
+            }
         default:
             return state
     }
