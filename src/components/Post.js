@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom"
 
-const Post = ({ values: { uid, title, image }, latest }) => {
+const Post = ({ values: { uid, title, image = "img/default.jpg" }, latest }) => {
 
     const regularPost = () => {
         return (
