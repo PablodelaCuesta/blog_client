@@ -4,11 +4,13 @@ export const authReducer = (state, {type, payload}) => {
     switch (type) {
         case authActions.LOGIN:
             return {                
-                ...payload
+                ...payload,
+                logged: true
             }
         case authActions.LOGOUT:
             return {
-                ...payload
+                ...payload,
+                logged: false
             }
         default:
             return state
