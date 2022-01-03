@@ -9,10 +9,10 @@ import Post from '../components/Post'
 import Aside from './Aside/Aside';
 
 // Controllers
-import { getallPosts } from '../controllers/post.controller';
+import { getallPosts } from '../../API/controllers/post.controller';
 import { Pagination } from '../components/Pagination';
-import { PostContext } from '../context/Post/PostContext';
-import { getallCategories } from '../controllers/category.controller';
+import { PostContext } from '../../API/context/Post/PostContext';
+import { getallCategories } from '../../API/controllers/category.controller';
 
 const Blog = () => {
 
@@ -21,6 +21,8 @@ const Blog = () => {
     const [postlist, setPost] = useState([])
     const [pagination, setPagination] = useState({})
 
+
+    // TODO: Refactor this piece of code
     const retrieveAllPost = async () => {
         console.log("GETAllPost");
         const resp = await getallPosts()
@@ -37,6 +39,7 @@ const Blog = () => {
         setDrawCategories(res.resp)
     }
 
+    // TODO: Each effect must to be independent
     useEffect(() => {
         retrieveAllCategories()
         retrieveAllPost()

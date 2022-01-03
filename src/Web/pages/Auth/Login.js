@@ -1,6 +1,6 @@
 import { useContext } from "react"
 import { useState } from "react/cjs/react.development"
-import { AuthContext } from "../../context/Auth/AuthContext"
+import { AuthContext } from "../../../API/context/Auth/AuthContext"
 
 const Login = () => {
 

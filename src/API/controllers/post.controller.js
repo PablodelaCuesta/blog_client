@@ -1,6 +1,6 @@
 import axios from "axios"
 
-
+// TODO: Delete const value from this code and add dotenv to read it from another file
 const BASE_URL = "http://localhost:8080/api"
 
 export const getallPosts = async ( page = 1 ) => {

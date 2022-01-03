@@ -35,6 +35,7 @@ const Aside = ({ posts = [], categories }) => {
                         <h3 className="h6">Categories</h3>
                     </header>
                     {
+                        // TODO: Categories should be another filter by posts
                         categories.map(category => (
                             <div key={category.uid} className="item d-flex justify-content-between">
                                 <span>{category.name}</span><span>{category.posts.length}</span>

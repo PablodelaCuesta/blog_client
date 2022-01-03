@@ -3,11 +3,11 @@
 import { Route, Routes } from 'react-router-dom';
 
 // Pages
-import Home from '../pages/Home'
-import Login from '../pages/Auth/Login'
-import Blog from '../pages/Blog';
-import PostScreen from '../pages/Blog/PostScreen'
-import { ContactScreen } from '../pages/ContactScreen';
+import Home from '../../Web/pages/Home'
+import Login from '../../Web/pages/Auth/Login'
+import Blog from '../../Web/pages/Blog';
+import PostScreen from '../../Web/pages/Blog/PostScreen'
+import { ContactScreen } from '../../Web/pages/ContactScreen';
 import { PostProvider } from '../context/Post/PostContext';
 
 

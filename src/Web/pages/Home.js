@@ -1,6 +1,6 @@
 // Libraries
 import { useContext, useEffect } from 'react'
-import { PostContext } from '../context/Post/PostContext';
+import { PostContext } from '../../API/context/Post/PostContext';
 
 const Home = () => {
 
@@ -17,6 +17,8 @@ const Home = () => {
 
 
     return (
+
+        // TODO: Add cv information
 
 
         <div className="container">

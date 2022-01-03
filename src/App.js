@@ -3,10 +3,10 @@ import './App.css';
 
 
 // Contexts
-import { AuthContext } from './Infrastructure/context/Auth/AuthContext';
+import { AuthContext } from './API/context/Auth/AuthContext';
 
 // Routes
-import { AppRouter } from './Infrastructure/routes/AppRouter';
+import { AppRouter } from './API/routes/AppRouter';
 
 // React libraries
 import { useContext, useEffect } from 'react';

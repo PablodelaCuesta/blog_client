@@ -1,6 +1,6 @@
 import { useContext } from "react"
 import { Link, } from "react-router-dom"
-import { AuthContext } from "../context/Auth/AuthContext"
+import { AuthContext } from "../../API/context/Auth/AuthContext"
 
 import './Navbar.css'
 
@@ -79,6 +79,7 @@ const Navbar = () => {
                                 </a>
                             </div>
 
+                            {/* TODO: change language must to change all the language of the blog */}
                             <ul className="langs navbar-text">
                                 <a className="active">EN</a>
                                 <span>           </span>

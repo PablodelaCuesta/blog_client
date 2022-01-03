@@ -6,7 +6,7 @@ import { PrivateRoutes } from './PrivateRoutes.routes';
 import { PublicRoutes } from './PublicRoutes.routes';
 
 // Components
-import Navbar from '../components/Navbar';
+import Navbar from '../../Web/components/Navbar';
 
 
 
