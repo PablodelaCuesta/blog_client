@@ -3,9 +3,13 @@ import './App.css';
 
 
 // Contexts
-import { AuthContext } from './context/Auth/AuthContext';
+import { AuthContext } from './Infrastructure/context/Auth/AuthContext';
+
+// Routes
+import { AppRouter } from './Infrastructure/routes/AppRouter';
+
+// React libraries
 import { useContext, useEffect } from 'react';
-import { AppRouter } from './routes/AppRouter';
 
 function App() {
 
