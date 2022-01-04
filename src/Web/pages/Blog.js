@@ -20,33 +20,36 @@ const Blog = () => {
     const [drawCategories, setDrawCategories] = useState([])
     const [postlist, setPost] = useState([])
     const [pagination, setPagination] = useState({})
+    const [page, setPage] = useState(1)
 
 
-    // TODO: Refactor this piece of code
-    const retrieveAllPost = async () => {
-        console.log("GETAllPost");
-        const resp = await getallPosts()
-        setPost(resp.docs)
-
-        const { hasNextPage, hasPrevPage, pagingCounter, nextPage, prevPage, totalPages } = resp
-        setPagination({ hasNextPage, hasPrevPage, pagingCounter, nextPage, prevPage, totalPages })
-    }
-
-
-    const retrieveAllCategories = async () => {
-        console.log("GET all categories");
-        const res = await getallCategories()
-        setDrawCategories(res.resp)
-    }
-
-    // TODO: Each effect must to be independent
     useEffect(() => {
-        retrieveAllCategories()
-        retrieveAllPost()
+        (
+            async () => {
+                const resp = await getallPosts(page)
+                setPost(resp.docs)
 
+                const { hasNextPage, hasPrevPage, pagingCounter, nextPage, prevPage, totalPages } = resp
+                setPagination({ hasNextPage, hasPrevPage, pagingCounter, nextPage, prevPage, totalPages })
+            }
+        )()
+    }, [ page ])
+
+
+    useEffect(() => {
         if (state && !state.docs) {
             latestPosts()
         }
+    }, [])
+
+    useEffect(() => {
+        (
+            async () => {
+
+                const res = await getallCategories()
+                setDrawCategories(res.resp)
+            }
+        )()
     }, [])
 
     return (
@@ -63,7 +66,7 @@ const Blog = () => {
                     <div className="row">
                         <div className="col">
                             {
-                                Object.keys(pagination).length > 0 ? <Pagination pagination={pagination} /> : ''
+                                Object.keys(pagination).length > 0 ? <Pagination pagination={pagination} actualPage={page} setPage={setPage} /> : ''
                             }
                         </div>
                     </div>
