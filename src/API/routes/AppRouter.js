@@ -7,33 +7,23 @@ import { PublicRoutes } from './PublicRoutes.routes';
 
 // Components
 import Navbar from '../../Web/components/Navbar';
+import { useContext } from 'react';
+import { AuthContext } from '../context/Auth/AuthContext';
 
 
 
 
 export const AppRouter = () => {
+
+    const { state } = useContext(AuthContext)
+
     return (
         <BrowserRouter>
             <Navbar />
             <div >
                 <main>
-                    <Routes>
-                        <Route path="/*" element={
-                            <PublicRoutes />
-                        } />
-
-                        <Route path="/editor" element={
-                            <PrivateRoutes>
-                                {/* <Route path="/editor" element={} />
-                                <Route path="/editor/:id" element={} />
-                                <Route path="/admin" element={} /> */}
-                            </PrivateRoutes>
-                        } />
-
-
-
-                        {/* <Route path="/register" element={<Register />} /> */}
-                    </Routes>
+                    <PublicRoutes />
+                    <PrivateRoutes isAuthenticated={state.logged} />
                 </main>
 
             </div>

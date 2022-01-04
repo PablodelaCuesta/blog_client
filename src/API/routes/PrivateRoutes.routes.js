@@ -1,11 +1,26 @@
-import { useContext } from "react"
-import { Navigate } from "react-router"
-import { AuthContext } from "../context/Auth/AuthContext"
+import { Navigate, Routes, Route } from "react-router"
+import { AdminScreen } from "../../Web/pages/Admin/AdminScreen"
+import { EditorScreen } from "../../Web/pages/Editor/EditorScreen"
 
 
-export const PrivateRoutes = ({ children }) => {
-    
-    const { state } = useContext(AuthContext)
+export const PrivateRoutes = ({ isAuthenticated }) => {
 
-    return state.logged ? children : <Navigate to="/" />
+    const privateRoutes = () => {
+        return (
+            <Routes>
+                <Route path="/admin" element={<AdminScreen />} />
+                <Route path="/editor" element={<EditorScreen />} />
+            </Routes>
+        )
+    }
+
+    return (
+        <>
+            {
+                isAuthenticated
+                    ? privateRoutes()
+                    : <Navigate to='/login' />
+            }
+        </>
+    )
 }
