@@ -14,9 +14,9 @@ const Navbar = () => {
         if (state.jwt) {
             return (
                 <div>
-                    <li className="nav-item">
-                        <span className="nav-link active" style={{ color: "white" }} > Hola {state.name} ! </span>
-                    </li>
+                    {/* <li className="nav-item">
+                        <span className="nav-link active" style={{ color: "black" }} > Hola {state.name} ! </span>
+                    </li> */}
                     <li className="nav-item">
                         <Link to="/" onClick={logout} className="nav-link active" >Logout</Link>
                     </li>
@@ -33,12 +33,20 @@ const Navbar = () => {
         }
     }
 
+    const editorLink = () => {
+        return (
+            <li className="nav-item">
+                <Link to="/editor" className="nav-link active" >Editor</Link>
+            </li>
+        )
+    }
+
     return (
         <nav className="navbar navbar-expand-md">
-            <div id="search-area" className="search-area" style={{display: "none"}}>
+            <div id="search-area" className="search-area" style={{ display: "none" }}>
                 <div className="search-area-inner d-flex align-items-center justify-content-center">
 
-                    <div className="close-btn"><i onClick={() => { document.getElementById("search-area").style.display = 'none'}} className="far fa-times-circle"></i></div>
+                    <div className="close-btn"><i onClick={() => { document.getElementById("search-area").style.display = 'none' }} className="far fa-times-circle"></i></div>
 
                     <div className="row d-flex justify-content-center">
                         <div className="col-md-8">
@@ -72,10 +80,15 @@ const Navbar = () => {
                             <li className="nav-item">
                                 <Link to="/contact" className="nav-link active" >Contact</Link>
                             </li>
+                            {
+                                state.jwt
+                                    ? editorLink()
+                                    : ''
+                            }
 
                             <div className="navbar-text">
                                 <a className="search-btn">
-                                    <i onClick={ () => { document.getElementById("search-area").style.display = 'block'}} className="fas fa-search"></i>
+                                    <i onClick={() => { document.getElementById("search-area").style.display = 'block' }} className="fas fa-search"></i>
                                 </a>
                             </div>
 
@@ -85,7 +98,9 @@ const Navbar = () => {
                                 <span>           </span>
                                 <a>ES</a>
                             </ul>
-                            {signin()}
+                            {
+                                signin()
+                            }
                         </div>
                     </div>
 
