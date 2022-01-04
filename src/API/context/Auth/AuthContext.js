@@ -7,7 +7,8 @@ import { authActions } from "./actions";
 const initialState = {
     email: '',
     name: '',
-    jwt: ''
+    jwt: '',
+    logged: false
 }
 
 export const AuthContext = createContext(initialState)

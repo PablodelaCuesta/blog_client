@@ -5,8 +5,7 @@ const BASE_URL = "http://localhost:8080/api"
 
 export const getallPosts = async ( page = 1 ) => {
     try {
-        const res = await axios.get(BASE_URL + `/posts?page=${page}&limit=3`)
-        console.log(res);
+        const res = await axios.get(BASE_URL + `/posts?page=${page}&limit=6`)
         return res.data
 
     } catch (error) {
