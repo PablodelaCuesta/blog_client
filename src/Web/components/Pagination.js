@@ -1,16 +1,32 @@
-// import { useState } from "react";
 
+export const Pagination = ({ pagination, actualPage, setPage }) => {
 
-export const Pagination = ({ pagination }) => {
+    const paginationNumbers = ( number ) => {
+        
+        let content = [];
+        let html;
+        for (let index = 1; index <= number; index++) {
+            if ( index == actualPage) {
+                html = <li key={index} className="page-item active"><button value={index} className="page-link" onClick={handleClickPagination}>{index}</button></li>
+            } else {
+                html = <li key={index} className="page-item"><button value={index} className="page-link" onClick={handleClickPagination}>{index}</button></li>
+            }
+            content.push(html)        
+        }
 
-    // const [state, setState] = useState(pagination)
+        return content
+    }
 
     const handleClickPagination = (e) => {
-        console.log(e.target.value);
+        setPage(e.target.value);
     }
 
     const handlerNext = (e) => {
-        console.log( pagination.hasNextPage, pagination.nextPage);
+        setPage(pagination.nextPage)
+    }
+
+    const handlerPrev = (e) => {
+        setPage(pagination.prevPage)
     }
 
     return (
@@ -19,28 +35,20 @@ export const Pagination = ({ pagination }) => {
                 {
                     pagination.hasPrevPage
                         ? (
-                            // TODO: Add functionality by pre page
                             <li className="page-item">
-                                <a className="page-link" href="#" aria-label="Previous">
-                                    <span aria-hidden="true">&laquo;</span>
-                                </a>
+                                <button className="page-link" onClick={handlerPrev}><span aria-hidden="true">&laquo;</span></button>
                             </li>
                         )
                         : ''
                 }
-                {/* TODO: Each number must to make a call to the api and show the respective posts */}
-                <li className="page-item"><button className="page-link" onClick={handleClickPagination}>1</button></li>
-                <li className="page-item"><button className="page-link" onClick={handleClickPagination}>2</button></li>
-                <li className="page-item"><button className="page-link" onClick={handleClickPagination}>3</button></li>
+                {
+                    paginationNumbers(pagination.totalPages)
+                }
                 {
                     pagination.hasNextPage
                         ? (
-                            // TODO: Add functionality by next page
                             <li className="page-item">
                                 <button className="page-link" onClick={handlerNext}><span aria-hidden="true">&raquo;</span></button>
-{/*                                     
-                                <a className="page-link" href="#" aria-label="Next">
-                                </a> */}
                             </li>
                         )
                         : ''
