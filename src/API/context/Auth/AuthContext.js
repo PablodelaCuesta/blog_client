@@ -14,7 +14,9 @@ const initialState = {
 export const AuthContext = createContext(initialState)
 
 export const AuthProvider = ({ children }) => {
-    const [state, dispatch] = useReducer(authReducer, initialState)
+
+    const auth = JSON.parse(localStorage.getItem('auth'))
+    const [state, dispatch] = useReducer(authReducer, auth === null ? initialState : auth)
 
     const login = async (auth) => {
        
@@ -22,9 +24,10 @@ export const AuthProvider = ({ children }) => {
 
         const {jwt, email, name } = res.data
         const storageAuth = JSON.stringify({
-            "jwt": jwt,
-            "email": email,
-            "name": name
+            jwt: jwt,
+            email: email,
+            name: name,
+            logged: true
         })
 
         // Local persist

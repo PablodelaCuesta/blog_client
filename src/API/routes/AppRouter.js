@@ -1,15 +1,21 @@
 // Libraries
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
-
-// Routes
-import { PrivateRoutes } from './PrivateRoutes.routes';
-import { PublicRoutes } from './PublicRoutes.routes';
+import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
 
 // Components
 import Navbar from '../../Web/components/Navbar';
+
+// Context
 import { useContext } from 'react';
 import { AuthContext } from '../context/Auth/AuthContext';
+import { PostProvider } from '../context/Post/PostContext'
 
+// Pages
+import Home from '../../Web/pages/Home';
+import Blog from '../../Web/pages/Blog';
+import Login from '../../Web/pages/Auth/Login'
+import { EditorScreen } from '../../Web/pages/Editor/EditorScreen';
+import { ContactScreen } from '../../Web/pages/ContactScreen';
+import PostScreen from '../../Web/pages/Blog/PostScreen';
 
 
 
@@ -20,13 +26,18 @@ export const AppRouter = () => {
     return (
         <BrowserRouter>
             <Navbar />
-            <div >
-                <main>
-                    <PublicRoutes />
-                    <PrivateRoutes isAuthenticated={state.logged} />
-                </main>
-
-            </div>
+            <PostProvider>
+                <Routes>
+                    <Route path="/" exact element={<Home />} />
+                    <Route path="/login" exact element={<Login />} />
+                    <Route path="/blog" element={<Blog />} />
+                    <Route path="/blog/:id" element={<PostScreen />} />
+                    <Route path="/contact" element={<ContactScreen />} />
+                    <Route path="/editor" element={
+                        state.logged ? <EditorScreen /> : <Navigate to='/login' />
+                    } />
+                </Routes>
+            </PostProvider>
         </BrowserRouter>
     )
 }
