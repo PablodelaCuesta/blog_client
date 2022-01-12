@@ -22,3 +22,13 @@ export const getLatestPosts = async ( limit = 3 ) => {
         console.log(error);
     }
 }
+
+export const postNewPost = async ( post ) => {
+    try {
+        const resp = await axios.post(BASE_URL + '/posts', post)
+
+        return resp
+    } catch (error) {
+        console.log(error);
+    }
+}
