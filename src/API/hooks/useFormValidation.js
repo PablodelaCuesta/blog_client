@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export const useForm = ( initialState = {} ) => {
+export const useFormValidation = ( initialState = {} ) => {
     const [values, setValues] = useState(initialState);
     const [ errors, setErrors ] = useState({})
 
@@ -10,9 +10,10 @@ export const useForm = ( initialState = {} ) => {
 
     const handleInputChange = ( { target } ) => {
 
+        values[target.name]['value'] = target.value
+
         setValues({
-            ...values,
-            [target.name]: target.value
+            ...values
         })
     }
 
@@ -32,7 +33,7 @@ export const useForm = ( initialState = {} ) => {
     }
 
     const onSubmit = () => {
-
+        
     }
 
     return [ values, handleInputChange, handleCheckboxChange, handleInputMultiSelect, reset, onSubmit ]

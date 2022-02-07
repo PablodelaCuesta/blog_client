@@ -4,6 +4,15 @@ import { AuthContext } from "../../API/context/Auth/AuthContext"
 
 import './Navbar.css'
 
+// TODO: NavBar
+/*
+    * Búsqueda de entradas del blog mediante la lupa
+    * Cambio de idioma
+    * Modificar el enlace Admin por => Sign in / register para hacer el blog extensible a otros usos
+    * Al identificarse abrir nuevas opciones de administración. Nuevo post, nuevas categorías, gestión de usuarios o comentarios
+    * Quizás sería interesante una visualización de los logs del servidor
+*/
+
 const Navbar = () => {
 
     const { state, logout } = useContext(AuthContext)

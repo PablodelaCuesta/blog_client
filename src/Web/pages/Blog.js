@@ -14,6 +14,13 @@ import { Pagination } from '../components/Pagination';
 import { PostContext } from '../../API/context/Post/PostContext';
 import { getallCategories } from '../../API/controllers/category.controller';
 
+// TODO: Blog
+/*
+    * Edición y borrado de un post para administradores.
+    * Ampliar la funcionalidad anterior para usuarios registrados, y que solo puedan editar su propia entrada
+*/
+
+
 const Blog = () => {
 
     const { state, latestPosts } = useContext(PostContext)

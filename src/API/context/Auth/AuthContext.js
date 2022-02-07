@@ -30,12 +30,14 @@ export const AuthProvider = ({ children }) => {
             logged: true
         })
 
+        // FIXME: Changed that. Keep something in local storage can be an vulnerability
+
         // Local persist
         localStorage.setItem('auth', storageAuth)
         
         dispatch({
             type: authActions.LOGIN,
-            payload: { jwt, email, name }
+            payload: { jwt, email, name, logged: true }
         })
     }
 
@@ -47,7 +49,10 @@ export const AuthProvider = ({ children }) => {
     }
 
     const logout = () => {
+
+        // Remove local storage
         localStorage.removeItem('auth')
+
         dispatch({
             type: authActions.LOGOUT,
             payload: {}

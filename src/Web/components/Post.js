@@ -1,6 +1,34 @@
-import { Link } from "react-router-dom"
+import { useContext } from "react"
+import { Link, NavLink } from "react-router-dom"
+import { AuthContext } from "../../API/context/Auth/AuthContext"
+
+// TODO: Edición y borrado para administradores
+    // TODO: Edición de un post desde dentro de un post
+    // TODO: Borrado de un post desde dentro de un post
 
 const Post = ({ values: { uid, title, image = "img/default.jpg" }, latest }) => {
+
+    const { state } = useContext(AuthContext)
+
+    const editAndRemove = () => {
+        return (
+            <>
+                <li className="d-flex align-items-center me-3">
+                    <svg className="bi me-2" width="1em" height="1em"></svg>
+                    <small>
+                        <Link to={'/editor/' + uid}><i className="fas fa-edit"></i></Link>
+                    </small>
+                </li>
+                <li className="d-flex align-items-center me-3">
+                    <svg className="bi me-2" width="1em" height="1em"></svg>
+                    <small>
+                        <Link to={'/editor/' + uid}><i className="fas fa-trash-alt"></i></Link>
+                    </small>
+                </li>
+            </>
+        )
+    }
+
 
     const regularPost = () => {
         return (
@@ -12,13 +40,9 @@ const Post = ({ values: { uid, title, image = "img/default.jpg" }, latest }) => 
                         </h2>
 
                         <ul className="d-flex list-unstyled mt-auto">
-                            <li className="me-auto">
-                                <img src="https://github.com/twbs.png" alt="Bootstrap" width="32" height="32" className="rounded-circle border border-white" />
-                            </li>
-                            <li className="d-flex align-items-center me-3">
-                                <svg className="bi me-2" width="1em" height="1em"></svg>
-                                <small>Earth</small>
-                            </li>
+                            {
+                                state.logged ? editAndRemove() : 'No estoy logeado'
+                            }
                             <li className="d-flex align-items-center">
                                 <svg className="bi me-2" width="1em" height="1em"></svg>
                                 <small>3d</small>
@@ -35,7 +59,7 @@ const Post = ({ values: { uid, title, image = "img/default.jpg" }, latest }) => 
             <Link to={`/blog/${uid}`}>
                 <div className="item d-flex align-items-center">
                     <div className="image"><img src={`http://localhost:8080/${image}`} alt="No image" className="img-fluid" /></div>
-                    <div className="title"><strong>{ title }</strong>
+                    <div className="title"><strong>{title}</strong>
                         <div className="d-flex align-items-center">
                             <div className="views"><i className="icon-eye"></i> 500</div>
                             <div className="comments"><i className="icon-comment"></i>12</div>
