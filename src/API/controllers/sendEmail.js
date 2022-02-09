@@ -1,4 +1,5 @@
 import axios from "axios";
+import { emailDataTransform, joinNameAndSubject } from "../helpers/contactExtract";
 
 
 export const sendEmail = async ( message ) => {
@@ -6,10 +7,16 @@ export const sendEmail = async ( message ) => {
 
     try {
 
-        console.log(message);
-        const resp = await axios.post(`${baseURL}/email/contact`, message);
+        const messageTransformed = emailDataTransform( message );
+        const joinNameWithSubject = joinNameAndSubject( messageTransformed );
 
-        return resp
+        const resp = await axios.post(`${baseURL}/email/contact`, joinNameWithSubject);
+        console.log(resp);
+        if (resp.data.code === 200 && resp.data.msg === 'success') {
+            return true
+        }
+
+        return false
 
     } catch (error) {
         console.log(error);

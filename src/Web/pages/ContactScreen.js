@@ -1,3 +1,6 @@
+import { Navigate, useNavigate } from "react-router-dom"
+import Swal from "sweetalert2"
+import withReactContent from "sweetalert2-react-content"
 import { sendEmail } from "../../API/controllers/sendEmail"
 import { useFormValidation } from "../../API/hooks/useFormValidation"
 
@@ -34,18 +37,25 @@ const initialValue = {
 
 
 
-export const ContactScreen = () => {
-
+export const ContactScreen = (  ) => {
+    let navigate = useNavigate();
+    const mySwal = withReactContent(Swal);
     const [ values, handleInputChange ] = useFormValidation(initialValue)
 
     const onSubmit = async (event) => {
         event.preventDefault()
-        const resp = await sendEmail( values )
+        const resp = await sendEmail( values );
 
         if (resp) {
-            console.log('success!');
+            mySwal.fire({
+                title: 'Email sended successfully!',
+                didClose: () => {
+                    mySwal.clickConfirm()
+                }
+            }).then( () => {
+                navigate("/")
+            })
         }
-
     }
 
     return (
