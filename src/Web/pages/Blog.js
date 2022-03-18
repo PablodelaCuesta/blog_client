@@ -11,8 +11,8 @@ import Aside from './Aside/Aside';
 // Controllers
 import { getallPosts } from '../../API/controllers/post.controller';
 import { Pagination } from '../components/Pagination';
-import { PostContext } from '../../API/context/Post/PostContext';
 import { getallCategories } from '../../API/controllers/category.controller';
+import { GlobalContext } from '../../API/context/global/GlobalContext';
 
 // TODO: Blog
 /*
@@ -23,7 +23,7 @@ import { getallCategories } from '../../API/controllers/category.controller';
 
 const Blog = () => {
 
-    const { state, latestPosts } = useContext(PostContext)
+    const { state, latestPosts } = useContext(GlobalContext)
     const [drawCategories, setDrawCategories] = useState([])
     const [postlist, setPost] = useState([])
     const [pagination, setPagination] = useState({})

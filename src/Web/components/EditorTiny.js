@@ -1,5 +1,6 @@
 import { Editor } from '@tinymce/tinymce-react';
 import axios from 'axios';
+import { BASE_API } from '../../Core/constants/connections';
 
 export const EditorTiny = ({ editorRef, setDirty }) => {
     return (
@@ -28,9 +29,9 @@ export const EditorTiny = ({ editorRef, setDirty }) => {
                         image.append("image", blobInfo.blob());
 
                         try {
-                            const { data } = await axios.post("http://localhost:8080/api/posts/upload", image)
+                            const { data } = await axios.post(BASE_API + "/posts/upload", image)
                             console.log(data)
-                            success("http://localhost:8080/api/posts/images/" + data.name);
+                            success(BASE_API + "/posts/images/" + data.name);
                         } catch (error) {
                             failure(error);
                             return;

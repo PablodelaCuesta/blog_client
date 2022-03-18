@@ -1,6 +1,7 @@
 import { useContext } from "react"
 import { Link, NavLink } from "react-router-dom"
 import { AuthContext } from "../../API/context/Auth/AuthContext"
+import { BASE } from "../../Core/constants/connections"
 
 // TODO: Edición y borrado para administradores
     // TODO: Edición de un post desde dentro de un post
@@ -33,7 +34,7 @@ const Post = ({ values: { uid, title, image = "img/default.jpg" }, latest }) => 
     const regularPost = () => {
         return (
             <div className="col">
-                <div className="card card-cover h-100 overflow-hidden text-white bg-dark rounded-5 shadow-lg" style={{ backgroundImage: `url('http://localhost:8080/${image}')` }}>
+                <div className="card card-cover h-100 overflow-hidden text-white bg-dark rounded-5 shadow-lg" style={{ backgroundImage: `url('${BASE}/${image}')` }}>
                     <div className="d-flex flex-column h-100 p-5 pb-3">
                         <h2 className="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">
                             <Link className="text-white" to={'/blog/' + uid}>{title}</Link>
@@ -58,7 +59,7 @@ const Post = ({ values: { uid, title, image = "img/default.jpg" }, latest }) => 
         return (
             <Link to={`/blog/${uid}`}>
                 <div className="item d-flex align-items-center">
-                    <div className="image"><img src={`http://localhost:8080/${image}`} alt="No image" className="img-fluid" /></div>
+                    <div className="image"><img src={`${BASE}/${image}`} alt="No image" className="img-fluid" /></div>
                     <div className="title"><strong>{title}</strong>
                         <div className="d-flex align-items-center">
                             <div className="views"><i className="icon-eye"></i> 500</div>

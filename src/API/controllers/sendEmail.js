@@ -1,16 +1,16 @@
 import axios from "axios";
+import { BASE_API } from "../../Core/constants/connections";
 import { emailDataTransform, joinNameAndSubject } from "../helpers/contactExtract";
 
 
 export const sendEmail = async ( message ) => {
-    const baseURL = 'http://localhost:8080/api';
 
     try {
 
         const messageTransformed = emailDataTransform( message );
         const joinNameWithSubject = joinNameAndSubject( messageTransformed );
 
-        const resp = await axios.post(`${baseURL}/email/contact`, joinNameWithSubject);
+        const resp = await axios.post(`${BASE_API}/email/contact`, joinNameWithSubject);
         console.log(resp);
         if (resp.data.code === 200 && resp.data.msg === 'success') {
             return true

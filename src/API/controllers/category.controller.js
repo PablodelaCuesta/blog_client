@@ -1,11 +1,10 @@
 import axios from "axios"
+import { BASE_API } from "../../Core/constants/connections"
 
-
-const BASE_URL = "http://localhost:8080/api"
 
 export const getallCategories = async () => {
     try {
-        const res = await axios.get(BASE_URL + "/category")
+        const res = await axios.get(BASE_API + "/category")
         return res.data
 
     } catch (error) {

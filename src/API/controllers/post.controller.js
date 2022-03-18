@@ -1,11 +1,10 @@
 import axios from "axios"
+import { BASE_API } from "../../Core/constants/connections"
 
-// TODO: Delete const value from this code and add dotenv to read it from another file
-const BASE_URL = "http://localhost:8080/api"
 
 export const getallPosts = async ( page = 1 ) => {
     try {
-        const res = await axios.get(BASE_URL + `/posts?page=${page}&limit=6`)
+        const res = await axios.get(BASE_API + `/posts?page=${page}&limit=6`)
         return res.data
 
     } catch (error) {
@@ -15,7 +14,7 @@ export const getallPosts = async ( page = 1 ) => {
 
 export const getLatestPosts = async ( limit = 3 ) => {
     try {
-        const res = await axios.get(BASE_URL + `/posts?page=1&limit=3`)
+        const res = await axios.get(BASE_API + `/posts?page=1&limit=3`)
 
         return res.data
     } catch (error) {
@@ -25,7 +24,7 @@ export const getLatestPosts = async ( limit = 3 ) => {
 
 export const postNewPost = async ( post ) => {
     try {
-        const resp = await axios.post(BASE_URL + '/posts', post)
+        const resp = await axios.post(BASE_API + '/posts', post)
 
         return resp
     } catch (error) {
