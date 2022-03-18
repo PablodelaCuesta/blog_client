@@ -23,7 +23,7 @@ import { GlobalContext } from '../../API/context/global/GlobalContext';
 
 const Blog = () => {
 
-    const { state, latestPosts } = useContext(GlobalContext)
+    const { globalState, latestPosts } = useContext(GlobalContext)
     const [drawCategories, setDrawCategories] = useState([])
     const [postlist, setPost] = useState([])
     const [pagination, setPagination] = useState({})
@@ -44,7 +44,7 @@ const Blog = () => {
 
 
     useEffect(() => {
-        if (state && !state.docs) {
+        if (globalState && globalState.posts.length === 0) {
             latestPosts()
         }
     }, [])
@@ -52,7 +52,6 @@ const Blog = () => {
     useEffect(() => {
         (
             async () => {
-
                 const res = await getallCategories()
                 setDrawCategories(res.resp)
             }
@@ -82,7 +81,7 @@ const Blog = () => {
             </div>
 
             <aside className="col-lg-4">
-                <Aside posts={state.docs} categories={drawCategories} />
+                <Aside posts={globalState.docs} categories={drawCategories} language={globalState.language} />
             </aside>
         </div>
     );

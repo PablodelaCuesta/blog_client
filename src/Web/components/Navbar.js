@@ -104,7 +104,7 @@ const Navbar = () => {
 
                             {/* TODO: change language must to change all the language of the blog */}
                             <li className="nav-item">
-                                <button id={types.language.ES} onClick={handleLanguage} className={`nav-link btn`} value={types.language.ES}>ES</button>
+                                <button id={types.language.ES} onClick={handleLanguage} className={`nav-link btn active`} value={types.language.ES}>ES</button>
                             </li>
                             <li className="nav-item">
                                 <button id={types.language.EN} onClick={handleLanguage} className={`nav-link btn`} value={types.language.EN}>EN</button>

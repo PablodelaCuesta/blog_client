@@ -1,7 +1,7 @@
 import axios from "axios";
 import { createContext, useReducer } from "react";
 
-import {authReducer} from "./AuthReducer";
+import { authReducer } from "./AuthReducer";
 import { authActions } from "./actions";
 import { BASE_API } from "../../../Core/constants/connections";
 
@@ -20,26 +20,31 @@ export const AuthProvider = ({ children }) => {
     const [state, dispatch] = useReducer(authReducer, auth === null ? initialState : auth)
 
     const login = async (auth) => {
-       
-        const res = await axios.post( BASE_API + "/auth/login", auth)
+        try {
+            const res = await axios.post(BASE_API + "/auth/login", auth)
 
-        const {jwt, email, name } = res.data
-        const storageAuth = JSON.stringify({
-            jwt: jwt,
-            email: email,
-            name: name,
-            logged: true
-        })
+            const { jwt, email, name } = res.data
+            const storageAuth = JSON.stringify({
+                jwt: jwt,
+                email: email,
+                name: name,
+                logged: true
+            })
 
-        // FIXME: Changed that. Keep something in local storage can be an vulnerability
+            // FIXME: Changed that. Keep something in local storage can be an vulnerability
 
-        // Local persist
-        localStorage.setItem('auth', storageAuth)
-        
-        dispatch({
-            type: authActions.LOGIN,
-            payload: { jwt, email, name, logged: true }
-        })
+            // Local persist
+            localStorage.setItem('auth', storageAuth)
+
+            dispatch({
+                type: authActions.LOGIN,
+                payload: { jwt, email, name, logged: true }
+            })
+
+            return true
+        } catch (error) {
+            return false
+        }
     }
 
     const refreshPageLogin = (auth) => {
@@ -62,7 +67,7 @@ export const AuthProvider = ({ children }) => {
 
     return (
         <AuthContext.Provider value={{ state, login, refreshPageLogin, logout }}>
-            { children }
+            {children}
         </AuthContext.Provider>
     )
 }

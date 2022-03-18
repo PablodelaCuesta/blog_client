@@ -12,8 +12,7 @@ const Home = () => {
 
     // Use effect
     useEffect(() => {
-        if (globalState && !globalState.posts) {
-
+        if (globalState && globalState.posts.length === 0) {
             latestPosts()
         }
     }, [])
