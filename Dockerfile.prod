@@ -1,0 +1,16 @@
+
+FROM node:lts-alpine as builder
+
+WORKDIR /work/app
+COPY "package.json" ./
+RUN npm install --production --silent
+RUN npm install react-scripts -g --silent
+COPY . .
+RUN npm run build
+
+FROM nginx:stable-alpine
+
+COPY --from=builder /work/app/build /app
+COPY ./config/default.conf /etc/nginx/conf.d/
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
