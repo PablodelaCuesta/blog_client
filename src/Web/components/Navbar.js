@@ -1,6 +1,8 @@
-import { useContext } from "react"
+import { useContext, useState } from "react"
 import { Link, } from "react-router-dom"
 import { AuthContext } from "../../API/context/Auth/AuthContext"
+import { GlobalContext } from "../../API/context/global/GlobalContext"
+import { types } from "../../API/context/global/types"
 
 import './Navbar.css'
 
@@ -16,6 +18,9 @@ import './Navbar.css'
 const Navbar = () => {
 
     const { state, logout } = useContext(AuthContext)
+    const { globalState, changeLanguage } = useContext(GlobalContext)
+
+    const [active, setActive] = useState(true)
 
     const signin = () => {
 
@@ -27,7 +32,7 @@ const Navbar = () => {
                         <span className="nav-link active" style={{ color: "black" }} > Hola {state.name} ! </span>
                     </li> */}
                     <li className="nav-item">
-                        <Link to="/" onClick={logout} className="nav-link active" >Logout</Link>
+                        <Link to="/" onClick={logout} className="nav-link" >Logout</Link>
                     </li>
                 </div>
 
@@ -35,9 +40,9 @@ const Navbar = () => {
         }
         else {
             return (
-                <ul className="admin navbar-text">
-                    <Link to="/login" className="active" >Admin</Link>
-                </ul>
+                <li className="nav-item">
+                    <Link to="/login" className="nav-link" >Admin</Link>
+                </li>
             )
         }
     }
@@ -45,49 +50,50 @@ const Navbar = () => {
     const editorLink = () => {
         return (
             <li className="nav-item">
-                <Link to="/editor" className="nav-link active" >Editor</Link>
+                <Link to="/editor" className="nav-link" >Editor</Link>
             </li>
         )
     }
 
+    const handleLanguage = (self) => {
+        changeLanguage(self.target.value)
+
+        if (self.target.value == types.language.EN) {
+            document.getElementById(types.language.EN).className = "nav-link btn " + applyClassName(true)
+            document.getElementById(types.language.ES).className = "nav-link btn " + applyClassName(false)
+        }
+        else {
+            document.getElementById(types.language.EN).className = "nav-link btn " + applyClassName(false)
+            document.getElementById(types.language.ES).className = "nav-link btn " + applyClassName(true)
+
+        }
+
+
+    }
+    const applyClassName = (apply) => apply ? "active" : ""
+
     return (
-        <nav className="navbar navbar-expand-md">
-            <div id="search-area" className="search-area" style={{ display: "none" }}>
-                <div className="search-area-inner d-flex align-items-center justify-content-center">
+        <nav className="navbar navbar-expand-lg navbar-light bg-light">
 
-                    <div className="close-btn"><i onClick={() => { document.getElementById("search-area").style.display = 'none' }} className="far fa-times-circle"></i></div>
-
-                    <div className="row d-flex justify-content-center">
-                        <div className="col-md-8">
-                            <form action="#">
-                                <div className="form-group">
-                                    <input type="search" name="search" id="search" placeholder="What are you looking for?" />
-                                    <button type="submit" className="submit"><i className="fas fa-search"></i></button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
             <div className="container-fluid">
                 <Link to="/" className="navbar-brand">Pablo de la Cuesta</Link>
-                <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
                 </button>
-                <div className="collapse navbar-collapse" id="navbarCollapse">
+                <div className="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul className="navbar-nav me-auto mb-2 mb-md-0">
                     </ul>
 
                     <div className="d-flex">
                         <div className="navbar-nav">
                             <li className="nav-item">
-                                <Link to="/" className="nav-link active" >Home</Link>
+                                <Link to="/" className="nav-link" >Home</Link>
                             </li>
                             <li className="nav-item">
-                                <Link to="/blog" className="nav-link active" >Blog</Link>
+                                <Link to="/blog" className="nav-link" >Blog</Link>
                             </li>
                             <li className="nav-item">
-                                <Link to="/contact" className="nav-link active" >Contact</Link>
+                                <Link to="/contact" className="nav-link" >Contact</Link>
                             </li>
                             {
                                 state.jwt
@@ -95,25 +101,20 @@ const Navbar = () => {
                                     : ''
                             }
 
-                            <div className="navbar-text">
-                                <a className="search-btn">
-                                    <i onClick={() => { document.getElementById("search-area").style.display = 'block' }} className="fas fa-search"></i>
-                                </a>
-                            </div>
 
                             {/* TODO: change language must to change all the language of the blog */}
-                            <ul className="langs navbar-text">
-                                <a className="active">EN</a>
-                                <span>           </span>
-                                <a>ES</a>
-                            </ul>
+                            <li className="nav-item">
+                                <button id={types.language.ES} onClick={handleLanguage} className={`nav-link btn`} value={types.language.ES}>ES</button>
+                            </li>
+                            <li className="nav-item">
+                                <button id={types.language.EN} onClick={handleLanguage} className={`nav-link btn`} value={types.language.EN}>EN</button>
+                            </li>
+
                             {
                                 signin()
                             }
                         </div>
                     </div>
-
-
 
                 </div>
             </div>

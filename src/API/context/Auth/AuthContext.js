@@ -3,6 +3,7 @@ import { createContext, useReducer } from "react";
 
 import {authReducer} from "./AuthReducer";
 import { authActions } from "./actions";
+import { BASE_API } from "../../../Core/constants/connections";
 
 const initialState = {
     email: '',
@@ -20,7 +21,7 @@ export const AuthProvider = ({ children }) => {
 
     const login = async (auth) => {
        
-        const res = await axios.post("http://localhost:8080/api/auth/login", auth)
+        const res = await axios.post( BASE_API + "/auth/login", auth)
 
         const {jwt, email, name } = res.data
         const storageAuth = JSON.stringify({

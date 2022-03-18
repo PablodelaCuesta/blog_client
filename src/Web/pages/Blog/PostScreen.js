@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import parse from 'html-react-parser'
+import { BASE_API } from "../../../Core/constants/connections";
 
 const PostScreen = () => {
 
@@ -14,7 +15,7 @@ const PostScreen = () => {
         async function retrieveData() {
 
             if ( id !== undefined ) {
-                const response = await axios.get("http://localhost:8080/api/posts/" + id)
+                const response = await axios.get(BASE_API + "/posts/" + id)
                 console.log(response.data.post);    
                 const { title, content} = response.data.post
                 setContent(content)

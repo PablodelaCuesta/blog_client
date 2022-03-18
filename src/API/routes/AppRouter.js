@@ -7,7 +7,7 @@ import Navbar from '../../Web/components/Navbar';
 // Context
 import { useContext } from 'react';
 import { AuthContext } from '../context/Auth/AuthContext';
-import { PostProvider } from '../context/Post/PostContext'
+import { GlobalProvider } from '../context/global/GlobalContext';
 
 // Pages
 import Home from '../../Web/pages/Home';
@@ -25,8 +25,8 @@ export const AppRouter = () => {
 
     return (
         <BrowserRouter>
+            <GlobalProvider>
             <Navbar />
-            <PostProvider>
                 <Routes>
                     <Route path="/" exact element={<Home />} />
                     <Route path="/login" exact element={<Login />} />
@@ -37,7 +37,7 @@ export const AppRouter = () => {
                         state.logged ? <EditorScreen /> : <Navigate to='/login' />
                     } />
                 </Routes>
-            </PostProvider>
+            </GlobalProvider>
         </BrowserRouter>
     )
 }
