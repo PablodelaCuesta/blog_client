@@ -5,7 +5,7 @@ on:
   pull_request:
     branches:
       - "master"
-name: deploy
+name: deploy-backend
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -30,3 +30,17 @@ jobs:
         file: Dockerfile.prod
         push: true
         tags: ${{ secrets.DOCKER_HUB_USER }}/blog_client:latest
+
+
+  deploy:
+    runs-on: ubuntu-20.04
+    steps:
+    - name: Deploy on digital ocean
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        key: ${{ secrets.DO_KEY }}
+        port: ${{ secrets.PORT }}
+        script: |
+          
