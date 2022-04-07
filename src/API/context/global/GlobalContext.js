@@ -32,7 +32,7 @@ export const GlobalProvider = ({ children }) => {
     // Post
     const latestPosts = async () => {
         const resp = await getLatestPosts()
-        console.log(resp);
+        console.log('respuesta: ', resp);
         globalState.posts = resp.docs
 
         dispatch({

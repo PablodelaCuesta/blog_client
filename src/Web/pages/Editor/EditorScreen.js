@@ -6,7 +6,8 @@ import { EditorTiny } from '../../components/EditorTiny';
 
 import { getallCategories } from '../../../API/controllers/category.controller';
 import { MultiSelect } from "react-multi-select-component";
-import { postNewPost } from '../../../API/controllers/post.controller';
+import { getPost, postNewPost } from '../../../API/controllers/post.controller';
+import { useParams } from 'react-router-dom';
 
 
 export const EditorScreen = () => {
@@ -14,9 +15,17 @@ export const EditorScreen = () => {
     const editorRef = useRef(null);
     const [options, setOptions] = useState([])
     const [categories, setCategories] = useState([])
-    const [values, handleInputChange] = useForm({})
+    const [values, handleInputChange, handleCopyContent] = useForm({})
+
+    const { id } = useParams()
 
 
+
+
+    // TODO: Get the data related to id that comes with params variable
+    // TODO: To get that data we need to define a function, that function will make a call to the backend
+
+    // Handlers
     const handleSubmit = async (e) => {
         e.preventDefault()
         values['categories'] = categories.map( category => category.value)
@@ -39,6 +48,11 @@ export const EditorScreen = () => {
                 }))
 
                 setOptions(options)
+
+                if (id) {
+                    const post = await getPost( id )
+                    
+                }
             }
         )()
     }, [])
@@ -49,7 +63,7 @@ export const EditorScreen = () => {
             <form>
                 <div className="input-group mb-3">
                     <span className="input-group-text" id="basic-addon1">Title</span>
-                    <input type="text" className="form-control" placeholder="title" name='title' onChange={handleInputChange} aria-label="title" aria-describedby="basic-addon1" required />
+                    <input type="text" className="form-control" placeholder="title" name='title' onChange={handleInputChange} value={ values.title } aria-label="title" aria-describedby="basic-addon1" required />
                     <small className="invalid-feedback">Please provide a valid city.</small>
                 </div>
 

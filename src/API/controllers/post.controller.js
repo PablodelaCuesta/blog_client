@@ -12,6 +12,16 @@ export const getallPosts = async ( page = 1 ) => {
     }
 }
 
+export const getPost = async ( id ) => {
+    try {
+        const { data: { post } } = await axios.get(BASE_API + `/posts/${id}`)
+        return post;
+
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 export const getLatestPosts = async ( limit = 3 ) => {
     try {
         const res = await axios.get(BASE_API + `/posts?page=1&limit=3`)
