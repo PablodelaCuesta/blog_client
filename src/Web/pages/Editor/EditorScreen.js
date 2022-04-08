@@ -1,7 +1,6 @@
 
 import { useRef } from 'react';
 import { useEffect, useState } from 'react/cjs/react.development';
-import { useForm } from '../../../API/hooks/useForm';
 import { EditorTiny } from '../../components/EditorTiny';
 
 import { getallCategories } from '../../../API/controllers/category.controller';
@@ -9,13 +8,18 @@ import { MultiSelect } from "react-multi-select-component";
 import { getPost, postNewPost } from '../../../API/controllers/post.controller';
 import { useParams } from 'react-router-dom';
 
+const initialState = {
+    title: "Title",
+    overview: "Overview",
+    categories: []
+}
 
 export const EditorScreen = () => {
 
     const editorRef = useRef(null);
     const [options, setOptions] = useState([])
     const [categories, setCategories] = useState([])
-    const [values, handleInputChange, handleCopyContent] = useForm({})
+    const [values, setValues] = useState(initialState)
 
     const { id } = useParams()
 
@@ -28,11 +32,17 @@ export const EditorScreen = () => {
     // Handlers
     const handleSubmit = async (e) => {
         e.preventDefault()
-        values['categories'] = categories.map( category => category.value)
+        values['categories'] = categories
         values['content'] = editorRef.current.getContent()
-        console.log(values);
         const resp = await postNewPost(values)
-        console.log(resp);
+    }
+
+    const handleInputChange = ({ target }) => {
+
+        setValues({
+            ...values,
+            [target.name]: target.value
+        })
     }
 
     // Hooks
@@ -41,7 +51,7 @@ export const EditorScreen = () => {
         (
             async () => {
                 const { resp } = await getallCategories()
-
+                console.log(resp);
                 const options = resp.map(category => ({
                     label: category.name,
                     value: category.uid
@@ -50,8 +60,14 @@ export const EditorScreen = () => {
                 setOptions(options)
 
                 if (id) {
-                    const post = await getPost( id )
-                    
+                    const resp = await getPost( id )
+                    const respCategories = resp['categories']
+
+                    respCategories.map( respCategory => {
+                        
+                    })
+                    setValues(resp)
+                    // setCategories( resp['categories'] )
                 }
             }
         )()
@@ -64,17 +80,17 @@ export const EditorScreen = () => {
                 <div className="input-group mb-3">
                     <span className="input-group-text" id="basic-addon1">Title</span>
                     <input type="text" className="form-control" placeholder="title" name='title' onChange={handleInputChange} value={ values.title } aria-label="title" aria-describedby="basic-addon1" required />
-                    <small className="invalid-feedback">Please provide a valid city.</small>
+                    <small className="invalid-feedback">Please provide a valid title.</small>
                 </div>
 
                 <div className="input-group mb-3">
                     <span className="input-group-text" id="basic-addon2">Overview</span>
-                    <textarea name='overview' onChange={handleInputChange} className="form-control" aria-label="With textarea"></textarea>
+                    <textarea name='overview' onChange={handleInputChange} value={ values.overview } className="form-control" aria-label="With textarea"></textarea>
                     <div className="invalid-feedback">Please provide an overview.</div>
                 </div>
 
                 <div className="mb-3">
-                    <EditorTiny editorRef={editorRef} />
+                    <EditorTiny editorRef={editorRef} content={ values.content } />
                 </div>
 
                 <div className='mb-3'>
