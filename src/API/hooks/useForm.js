@@ -30,16 +30,9 @@ export const useForm = (initialState = {}) => {
         })
     }
 
-    const handleCopyContent = ( obj ) => {
-        for ( let key in obj) {
-
-            console.log(key);
-        }
-    }
-
     const onSubmit = () => {
 
     }
 
-    return [values, handleInputChange, handleCheckboxChange, handleInputMultiSelect, handleCopyContent, reset, onSubmit]
+    return [values, handleInputChange, handleCheckboxChange, handleInputMultiSelect, reset, onSubmit]
 }

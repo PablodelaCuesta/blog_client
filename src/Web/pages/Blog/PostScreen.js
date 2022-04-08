@@ -16,7 +16,6 @@ const PostScreen = () => {
 
             if ( id !== undefined ) {
                 const response = await axios.get(BASE_API + "/posts/" + id)
-                console.log(response.data.post);    
                 const { title, content} = response.data.post
                 setContent(content)
                 setTitle(title)
