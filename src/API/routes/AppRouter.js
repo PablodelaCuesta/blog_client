@@ -26,7 +26,7 @@ export const AppRouter = () => {
     return (
         <BrowserRouter>
             <GlobalProvider>
-            <Navbar />
+                <Navbar />
                 <Routes>
                     <Route path="/" exact element={<Home />} />
                     <Route path="/login" exact element={<Login />} />
@@ -34,6 +34,9 @@ export const AppRouter = () => {
                     <Route path="/blog/:id" element={<PostScreen />} />
                     <Route path="/contact" element={<ContactScreen />} />
                     <Route path="/editor" element={
+                        state.logged ? <EditorScreen /> : <Navigate to='/login' />
+                    } />
+                    <Route path="/editor/:id" element={
                         state.logged ? <EditorScreen /> : <Navigate to='/login' />
                     } />
                 </Routes>

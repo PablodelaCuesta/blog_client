@@ -65,7 +65,7 @@ const Blog = () => {
                     <div className="row row-cols-1 row-cols-lg-3 align-items-stretch g-4 py-5">
                         {
                             postlist.length < 0 ? 'No hay posts' : postlist.map(post => (
-                                <Post key={post.uid} values={post} latest={true} />
+                                <Post key={post.uid} values={post} latest={false} />
                             ))
                         }
                     </div>

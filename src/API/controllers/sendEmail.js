@@ -11,7 +11,6 @@ export const sendEmail = async ( message ) => {
         const joinNameWithSubject = joinNameAndSubject( messageTransformed );
 
         const resp = await axios.post(`${BASE_API}/email/contact`, joinNameWithSubject);
-        console.log(resp);
         if (resp.data.code === 200 && resp.data.msg === 'success') {
             return true
         }

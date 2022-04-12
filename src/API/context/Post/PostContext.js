@@ -19,7 +19,6 @@ export const PostProvider = ({ children }) => {
 
     const latestPosts = async () => {
         const resp = await getLatestPosts()
-        console.log(resp);
 
         dispatch({
             type: types.latests,

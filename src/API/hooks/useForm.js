@@ -1,14 +1,14 @@
 import { useState } from "react";
 
-export const useForm = ( initialState = {} ) => {
+export const useForm = (initialState = {}) => {
     const [values, setValues] = useState(initialState);
-    const [ errors, setErrors ] = useState({})
+    const [errors, setErrors] = useState({})
 
     const reset = () => {
-        setValues( initialState )
+        setValues(initialState)
     }
 
-    const handleInputChange = ( { target } ) => {
+    const handleInputChange = ({ target }) => {
 
         setValues({
             ...values,
@@ -16,8 +16,7 @@ export const useForm = ( initialState = {} ) => {
         })
     }
 
-    const handleCheckboxChange = ( { target } ) => {
-
+    const handleCheckboxChange = ({ target }) => {
         setValues({
             ...values,
             [target.name]: target.checked
@@ -35,5 +34,5 @@ export const useForm = ( initialState = {} ) => {
 
     }
 
-    return [ values, handleInputChange, handleCheckboxChange, handleInputMultiSelect, reset, onSubmit ]
+    return [values, handleInputChange, handleCheckboxChange, handleInputMultiSelect, reset, onSubmit]
 }
