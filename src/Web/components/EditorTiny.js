@@ -2,12 +2,12 @@ import { Editor } from '@tinymce/tinymce-react';
 import axios from 'axios';
 import { BASE_API } from '../../Core/constants/connections';
 
-export const EditorTiny = ({ editorRef, setDirty }) => {
+export const EditorTiny = ({ editorRef, setDirty, content }) => {
     return (
         <>
             <Editor
                 apiKey={ process.env.REACT_APP_TINY_API_KEY }
-                initialValue="<p>This is the initial content of the editor.</p>"
+                initialValue={content}
                 init={{
                     height: 300,
                     menubar: false,
